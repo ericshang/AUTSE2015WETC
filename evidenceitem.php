@@ -1,4 +1,7 @@
 <?php
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
 class EvidenceItem{
 	private $iid;
 	private $method_id;

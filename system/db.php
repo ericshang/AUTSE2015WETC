@@ -1,8 +1,11 @@
 <?php
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
 final class DB{
 	private $hostname="127.0.0.1";
 	private $username="root";
-	private $password="*********";
+	private $password="tomshy308";
 	private $database="serller";
 	
 	private $link;

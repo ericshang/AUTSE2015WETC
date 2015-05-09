@@ -1,4 +1,7 @@
 <?php
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
 class Method{
 	private $method_id;
 	private $name;

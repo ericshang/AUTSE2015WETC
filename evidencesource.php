@@ -1,4 +1,7 @@
 <?php
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
 class EvidenceSource{
 	private $esid;
 	private $bibref;

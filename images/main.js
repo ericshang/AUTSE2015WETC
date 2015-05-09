@@ -1,4 +1,7 @@
 // JavaScript Document
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
 //top nav
 function doNav(){
 	var headerNavUl = document.getElementById("headerNavUl").getElementsByTagName("li"); //返回Ul下的所有子元素集合

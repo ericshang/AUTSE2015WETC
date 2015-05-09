@@ -1,4 +1,7 @@
 <?php
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
 class Admin{
 	private $uid;
 	private $email;

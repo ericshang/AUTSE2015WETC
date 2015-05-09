@@ -1,4 +1,7 @@
 <?php
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
 class ConfidenceRating{
 	private $iid;//storign evidenceItemid 
 	private $credibilitylevel;

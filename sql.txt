@@ -1,3 +1,7 @@
+/**
+* @author Eric Shang @ nexs.co.nz
+*/
+
 CREATE TABLE  `serller`.`user` (
 `uid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `email`  TINYTEXT  NOT NULL ,
