@@ -1,0 +1,93 @@
+CREATE TABLE  `serller`.`user` (
+`uid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`email`  TINYTEXT  NOT NULL ,
+`password` TINYTEXT  NOT NULL ,
+`regtime` INT NOT NULL ,
+`role` INT NOT NULL ,
+`activate` TINYINT( 1 ) NOT NULL ,
+`name` TINYTEXT NOT NULL ,
+`organization` TINYTEXT NULL
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+CREATE TABLE  `serller`.`admin` (
+`uid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`password` TINYTEXT  NOT NULL ,
+`regtime` INT NOT NULL ,
+`role` INT NOT NULL ,
+`email` TINYTEXT NOT NULL ,
+`activate` TINYINT( 1 ) NOT NULL ,
+`name` TINYTEXT NOT NULL ,
+`organization` TINYTEXT NOT NULL
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+INSERT INTO  `serller`.`admin` ( `uid` ,  `password` , `regtime` , `role` , `email` , `activate` ,`name` , `organization`)
+ VALUES (NULL ,   '123456',  '0',  '10',  'master@serller',  '1',  'Site Master',  'AUT');
+
+
+
+CREATE TABLE  `serller`.`methodology` (
+`mid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`name` TINYTEXT NOT NULL ,
+`description` TEXT NOT NULL 
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+CREATE TABLE  `serller`.`Method` (
+`method_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`mid` INT NOT NULL,
+`name` TINYTEXT NOT NULL ,
+`description` TEXT NOT NULL 
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+
+CREATE TABLE  `serller`.`EvidenceItem` (
+`iid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`method_id` INT NOT NULL,
+`why` TEXT NOT NULL ,
+`who` TEXT NOT NULL ,
+`what` TEXT NOT NULL ,
+`where` TEXT NOT NULL ,
+`when` TEXT NOT NULL ,
+`how` TEXT NOT NULL ,
+`benefit` TEXT NOT NULL ,
+`result ` TEXT NOT NULL ,
+`methodImplementation` TEXT NOT NULL ,
+`esid` INT NOT NULL
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+CREATE TABLE  `serller`.`EvidenceSource` (
+`esid` NT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`bibref ` TEXT NOT NULL ,
+`researchlevel` TEXT NOT NULL ,
+`question` TEXT NOT NULL ,
+`method` TEXT NOT NULL ,
+`participants` TEXT NOT NULL ,
+`metrics` TEXT NOT NULL,
+`submitby` INT NOT NULL,
+`approved` TINYINT NOT NULL DEFAULT  '0'
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+CREATE TABLE  `serller`.`CredibilityRating` (
+`esid` INT NOT NULL ,
+`credibilitylevel` INT NOT NULL ,
+`reason` TEXT NOT NULL ,
+`rater` INT NOT NULL
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+ALTER TABLE  `credibilityrating` ADD PRIMARY KEY (  `esid`,`rater` );
+
+
+
+
+CREATE TABLE  `serller`.`ConfidenceRating` (
+`iid` INT NOT NULL ,
+`credibilitylevel` INT NOT NULL ,
+`reason` TEXT NOT NULL ,
+`rater` INT NOT NULL
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+ALTER TABLE  `confidencerating` ADD PRIMARY KEY (  `iid`,`rater` );
+
