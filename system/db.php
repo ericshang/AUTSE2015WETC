@@ -2,7 +2,7 @@
 final class DB{
 	private $hostname="127.0.0.1";
 	private $username="root";
-	private $password="tomshy308";
+	private $password="*********";
 	private $database="serller";
 	
 	private $link;
