@@ -6,6 +6,7 @@ class Methodology{
 	private $mid;
 	private $name;
 	private $description;
+	private $children; // array of children (method)
 
 	//constructor
 	public function __construct($mid, $name, $description){
@@ -60,7 +61,6 @@ class Methodology{
 			$description = $tempNew->description;
 			
 			$sql = "UPDATE  `methodology` SET `name` = '".@mysql_escape_string($name)."',`description` = '".@mysql_escape_string($description)."' WHERE `mid` = '".$this->mid."'";
-			echo $sql;
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
@@ -82,6 +82,36 @@ class Methodology{
 	public function getMid(){ return $this->mid; }
 	public function getName(){ return $this->name; }
 	public function getDescription(){ return $this->description; }
+	public function getChildren(){ return $this->children; }
+	
+	//setters
+	public function setChildren(){
+		$result = false;
+		if($this-> getMid() >0){
+			require_once('./system/db.php');
+			$db = new DB();
+			$sql = "SELECT * FROM `method` WHERE `mid` = '".$this-> getMid()."' ;";
+			if($query = $db->query($sql)){
+				if($query->num_rows <1){
+					return false;
+				}
+				$this->children = array();
+				require_once('./method.php');
+				$rows = $query->rows;
+				$i=0;
+				foreach($rows as $row){
+					$method_id = $row['method_id'];
+					$mid = $row['mid'];
+					$name = $row['name'];
+					$description = $row['description'];
+					$this->children[$i] = new Method($method_id, $mid, $name, $description);
+					$i++;
+				}
+				$result = true;
+			}
+		}
+		return $result;
+	}
 	
 	//check if the Methogology has existed
 	private function isExisted($methodology){
@@ -126,6 +156,8 @@ class Methodology{
 			}
 		}
 	}
+	
+	
 	
 	public function __destruct() {
 		unset($this);

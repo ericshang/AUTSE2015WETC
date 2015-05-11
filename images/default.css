@@ -215,16 +215,15 @@ Main body
 	padding:10px;
 }
 .mainLeftBarUl{
-	margin:0;
+	margin:0.6em 0;
 	padding:0;
 	list-style:none;
 }
 .mainLeftBarUl li {
 	padding:0.2em 0.3em;
+	font-weight:bold;
 }
-.mainLeftBarUl li:hover {
-	background-color:#f0f0f0;
-}
+
 
 .castSheet{
 	margin:0;
@@ -311,6 +310,18 @@ Main body
 .castSheet_tileBox_content img{
 	margin-right:1em;
 	height:80px;
+}
+
+.childUl{
+	margin:0;
+	padding:0;
+}
+.childUl li{
+	list-style:none;
+	font-weight:normal;
+}
+.childUl li:hover{
+	background-color:#f0f0f0;
 }
 
 /******

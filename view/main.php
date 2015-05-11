@@ -8,7 +8,15 @@
 <!--mainbody start-->
 <div class="boxMain">
 	<div class="boxMainLeft">
+    
     	<div class="mainLeftBar">
+            <form>
+            Search:<br />
+            <div class="searchFormDiv">
+                <input type="text" id="searchInput" /><input type="submit" value="Go" id="searchSubmit" />
+            </div>
+            </form>
+            <h3>Categories:</h3>
             <?php require_once('./view/catagoryList.php'); ?>
     	</div>
     </div>
