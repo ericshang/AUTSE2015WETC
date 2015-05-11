@@ -20,10 +20,13 @@ class User{
 	public function register(){
 		$regResult = false;
 		if($this->isUserExisted($this)==false){
+			if($this->email == null || $this->password ==null || $this->name == null){
+				return false;
+			}
 			$email = $this->email;
 			$password = $this->password;
 			$regtime = time();
-			$role = $this->role;
+			$role = $this->role>0 ? $this->role : 1 ;
 			$activate = 0;
 			$name = $this->name;
 			$organization = $this->organization;
@@ -38,7 +41,15 @@ class User{
 				$sql2 = "SELECT * FROM  `user` WHERE `email` = '$email'";
 				if($query = $db->query($sql2)){
 					$row =  $query->row;
-					$this->uid= $row['uid'];
+					$uid= $row['uid'];
+					$email = $row['email'];
+					$password = $row['password'];
+					$role = $row['role'];
+					$activate = $row['activate'];
+					$name = $row['name'];
+					$regtime = $row['regtime'];
+					$organization = $row['organization'];
+					$this->setUser($uid, $email, $password, $regtime, $role, $activate, $name, $organization);
 				}
 				$regResult = true;
 			}
@@ -50,7 +61,7 @@ class User{
 	public function login(){
 		$result = false;
 		//the session must have started, other wise it can not finish login
-		if(isset($_SESSION)){//when login, the user is only passed the email and password to the create the user object
+		if(isset($_SESSION) && $this->email !=null && $this->password != null){//when login, the user is only passed the email and password to the create the user object
 			$sql = "SELECT * FROM `user` WHERE `email` = '".$this->email."' AND `password` = '".$this->password."' ;";
 			//db connection
 			require_once('./system/db.php');
@@ -60,12 +71,13 @@ class User{
 				if($query->num_rows <1 ){
 					echo "user not found";
 					return false;
+				}else{
+					//repopulate user
+					//update user object
+					$this->setUser($row['uid'], $row['email'], $row['password'], $row['regtime'], $row['role'], $row['activate'], $row['name'], $row['organization']);
+					$_SESSION["user"] = $this;				
+					$result = true;
 				}
-				//repopulate user
-				//update user object
-				$this->setUser($row['uid'], $row['email'], $row['password'], $row['regtime'], $row['role'], $row['activate'], $row['name'], $row['organization']);
-				$_SESSION["user"] = $this;				
-				$result = true;
 			}
 		}
 		return $result;
@@ -108,7 +120,7 @@ class User{
 		$result = false;
 		if($user->email != null){
 			$sql = "SELECT * FROM `user` WHERE `email` = '".$user->email."' ";
-			if($user->uid){
+			if($user->uid >0){
 				$sql = "SELECT * FROM `user` WHERE `uid` = '".$user->uid."' ";
 			}
 			require_once('./system/db.php');
@@ -153,6 +165,42 @@ class User{
 			   $this->activate === $user->activate  && 
 			   $this->name === $user->name  && 
 			   $this->organization === $user->organization ;
+	}
+	
+	
+	//retrieve object by primary key
+	public function retrieve($uid){
+		if($uid>0){
+			$sql ="SELECT * FROM `user` WHERE `uid`='$uid'";
+			require_once('./system/db.php');
+			$db = new DB();
+			$query = $db->query($sql);
+			$num = $query->num_rows;
+			if($num>0){
+				$row = $query->row;
+				$uid= $row['uid'];
+				$email = $row['email'];
+				$password = $row['password'];
+				$role = $row['role'];
+				$activate = $row['activate'];
+				$name = $row['name'];
+				$regtime = $row['regtime'];
+				$organization = $row['organization'];
+				
+				$this->setUser($uid, $email, $password, $regtime, $role, $activate, $name, $organization);
+			}
+		}
+	}
+	
+	public function toString(){
+		echo $this->uid  ."|".
+			$this->email . "|".
+			$this->password ."|".
+			$this->regtime ."|".
+			$this->role ."|".
+			$this->activate ."|".
+			$this->name."|".
+			$this->organization ;
 	}
 	
 	public function __destruct() {

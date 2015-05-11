@@ -105,6 +105,26 @@ class ConfidenceRating{
 			   $this->rater === $cr->rater  ;
 	}
 	
+	//retrieve object by primary key
+	public function retrieve($iid, $rater){//composite key
+		if($iid>0 && $rater>0){
+			$sql ="SELECT * FROM `confidencerating` WHERE `iid`='$iid' AND `rater` = '$rater'";
+			require_once('./system/db.php');
+			$db = new DB();
+			$query = $db->query($sql);
+			$num = $query->num_rows;
+			if($num>0){
+				$row = $query->row;
+				$iid= $row['iid'];
+				$credibilitylevel = $row['credibilitylevel'];
+				$reason = $row['reason'];
+				$rater = $row['rater'];
+				
+				$this->setConfidenceRating($iid, $credibilitylevel, $reason, $rater);
+			}
+		}
+	}
+	
 	public function __destruct() {
 		unset($this);
 	}

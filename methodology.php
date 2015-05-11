@@ -9,7 +9,7 @@ class Methodology{
 
 	//constructor
 	public function __construct($mid, $name, $description){
-		$this->SetMethodology($mid, $name, $description);
+		$this->setMethodology($mid, $name, $description);
 	}
 	
 	//create new Methogology
@@ -107,6 +107,24 @@ class Methodology{
 		return $this->mid === $methodology->mid  && 
 			   $this->name === $methodology->name  && 
 			   $this->description === $methodology->description  ;
+	}
+	
+	//retrieve object by primary key
+	public function retrieve($mid){//composite key
+		if($iid>0 && $rater>0){
+			$sql ="SELECT * FROM `methodology` WHERE `mid`='$mid'; ";
+			require_once('./system/db.php');
+			$db = new DB();
+			$query = $db->query($sql);
+			$num = $query->num_rows;
+			if($num>0){
+				$row = $query->row;
+				$mid = $row['mid'];
+				$name = $row['name'];
+				$description = $row['description'];		
+				$this->setMethodology($mid, $name, $description);
+			}
+		}
 	}
 	
 	public function __destruct() {

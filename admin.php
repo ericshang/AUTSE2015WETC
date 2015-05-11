@@ -94,7 +94,7 @@ class Admin{
 			$db = new DB();
 			if($db->query($sql)){
 				//repopulate user
-				setUser($this->uid, $email, $password, $this->regtime, $role, $activate, $name, $organization);
+				$this->setAdmin($this->uid, $email, $password, $this->regtime, $role, $activate, $name, $organization);
 				//update sessions
 				if(isset($_SESSION) && isset($_SESSION['Admin'])){
 					$temp = new Admin($this->uid, $email, '', $this->regtime, $role, $activate, $name, $organization);
@@ -156,6 +156,30 @@ class Admin{
 			   $this->activate === $user->activate  && 
 			   $this->name === $user->name  && 
 			   $this->organization === $user->organization ;
+	}
+	
+	//retrieve object by primary key
+	public function retrieve($uid){
+		if($uid>0){
+			$sql ="SELECT * FROM `admin` WHERE `uid`='$uid'";
+			require_once('./system/db.php');
+			$db = new DB();
+			$query = $db->query($sql);
+			$num = $query->num_rows;
+			if($num>0){
+				$row = $query->row;
+				$uid= $row['uid'];
+				$email = $row['email'];
+				$password = $row['password'];
+				$role = $row['role'];
+				$activate = $row['activate'];
+				$name = $row['name'];
+				$regtime = $row['regtime'];
+				$organization = $row['uidorganization'];
+				
+				$this->setAdmin($uid, $email, $password, $regtime, $role, $activate, $name, $organization);
+			}
+		}
 	}
 	
 	public function __destruct() {

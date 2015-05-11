@@ -76,7 +76,10 @@ frame boxes
 }
 .boxMain{
 	width:90%;
+}
+.boxMainTopMarker{
 	padding-top:61px;
+	width:100%;
 }
 
 /******

@@ -10,7 +10,7 @@ class Method{
 
 	//constructor
 	public function __construct($method_id, $mid, $name, $description){
-		$this->SetMethod($method_id, $mid, $name, $description);
+		$this->setMethod($method_id, $mid, $name, $description);
 	}
 	
 	//create new Methogology
@@ -67,14 +67,14 @@ class Method{
 			$db = new DB();
 			if($db->query($sql)){
 				//repopulate user
-				$this->setMethodology($this->method_id, $mid, $name, $description);
+				$this->setMethod($this->method_id, $mid, $name, $description);
 				$result = true;
 			}
 		}
 		return $result;
 	}
 
-	private function SetMethod($method_id, $mid, $name, $description){
+	private function setMethod($method_id, $mid, $name, $description){
 		$this->method_id = $method_id;
 		$this->mid = $mid;
 		$this->name = $name;
@@ -112,6 +112,25 @@ class Method{
 			   $this->mid === $method->mid  && 
 			   $this->name === $method->name  && 
 			   $this->description === $method->description  ;
+	}
+	
+	//retrieve object by primary key
+	public function retrieve($method_id){//composite key
+		if($iid>0 && $rater>0){
+			$sql ="SELECT * FROM `method` WHERE `method_id`='$method_id'; ";
+			require_once('./system/db.php');
+			$db = new DB();
+			$query = $db->query($sql);
+			$num = $query->num_rows;
+			if($num>0){
+				$row = $query->row;
+				$method_id= $row['method_id'];
+				$mid = $row['mid'];
+				$name = $row['name'];
+				$description = $row['description'];		
+				$this->setMethod($method_id, $mid, $name, $description);
+			}
+		}
 	}
 	
 	public function __destruct() {

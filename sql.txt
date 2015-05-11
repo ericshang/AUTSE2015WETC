@@ -56,13 +56,13 @@ CREATE TABLE  `serller`.`EvidenceItem` (
 `how` TEXT NOT NULL ,
 `benefit` TEXT NOT NULL ,
 `result ` TEXT NOT NULL ,
-`methodImplementation` TEXT NOT NULL ,
-`esid` INT NOT NULL
+`methodImplementation` TEXT NOT NULL 
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 CREATE TABLE  `serller`.`EvidenceSource` (
 `esid` NT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`iid` INT NOT NULL,
 `bibref ` TEXT NOT NULL ,
 `researchlevel` TEXT NOT NULL ,
 `question` TEXT NOT NULL ,
