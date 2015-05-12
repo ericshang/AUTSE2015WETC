@@ -201,6 +201,7 @@ class EvidenceItem{
 				$benefit = $row['benefit'];
 				$result = $row['result'];
 				$methodImplementation = $row['methodImplementation'];
+				$uid= $row['uid'];
 				
 				$this->setEvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid);
 			}

@@ -116,7 +116,7 @@ class Method{
 	
 	//retrieve object by primary key
 	public function retrieve($method_id){//composite key
-		if($iid>0 && $rater>0){
+		if($method_id>0){
 			$sql ="SELECT * FROM `method` WHERE `method_id`='$method_id'; ";
 			require_once('./system/db.php');
 			$db = new DB();

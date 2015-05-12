@@ -25,12 +25,12 @@ function showCatagory(){
 		if($methods != null){
 			$childrenList .="<div><ul class='childUl'>";
 			foreach($methods as $method){
-				 $childrenList .= "<li><a href=''>".$method->getName()."</a></li>";
+				 $childrenList .= "<li><a href='?category=method&cid=".$method->getMethodId()."'>".$method->getName()."</a></li>";
 			}
 			$childrenList .="</ul></div>";
 		}
 				
-		$result .= "<li><a href=''>$name</a> $childrenList</li>";
+		$result .= "<li><a href='?category=methodology&cid=".$mid."'>$name</a> $childrenList</li>";
 	}
 	echo $result;
 }

@@ -3,6 +3,45 @@
 * @author Eric Shang @ nexs.co.nz
 * main template
 */
+
+function showItemList(){
+	$extraSql = "";
+	if(isset($_GET['category']) && isset($_GET['cid'])){
+		
+		$category = trim($_GET['category']);
+		$cid = (int)$_GET['cid'];
+		if($category == "methodology" && $cid>0){
+			$extraSql = "  AND m.`mid` = '$cid' ";
+		}else if($category == "method" && $cid>0){
+			$extraSql = "  AND m.`method_id` = '$cid' ";
+		}
+	}
+
+	require_once('./system/db.php');
+	$db=new DB();
+	$sql = "select * from `evidenceitem` e, `method` m WHERE e.`method_id` = m.`method_id` $extraSql ";
+	$query = $db->query($sql);
+	$rows = $query->rows;
+	$num=$query->num_rows;
+	$i=1;
+	foreach($rows as $v){
+		echo "<div class='castSheet'>";
+		$title = $v['title'];
+		$what = $v['what'];
+		$iid = $v['iid'];
+		echo "<h2><a href='?act=showItem&id=$iid'>$title</a></h2>
+			<p>$what</p>";
+		echo "</div>";
+
+	}
+	if($num<1){
+		echo "<div class='castSheet'>";
+		$title = "Nothing Found";
+		echo "<h2>$title</h2>";
+		echo "</div>";
+	}
+}
+
 ?>
 
 <!--mainbody start-->
@@ -22,48 +61,7 @@
     </div>
     <div class="boxMainRight">
     
-        <div class="castSheet">
-			<h2>Evidence Item: The difference between throw and throws in Java</h2>
-			<div class='castSheet_facts'>Posted on 09:19:49 06/05/2015 </div>
-	
-            <p>Throws clause in used to declare an exception and throw keyword is used to throw an exception explicitly.</p>
-            <p>If we see syntax wise than throw is followed by an instance variable and throws is followed by exception class names.</p>
-            <p>The keyword throw is used inside method body to invoke an exception and throws clause is used in method declaration (signature).</p>
-            <div class="castSheet_share"><a>Read More</a><a>Evidence Source</a></div>
-            <div class="clear"></div>
-            <div class="castSheet_facts"><a>Confidence Raing: 4.5</a> | <a>My Raing: 0.5</a></div>
-        </div>
-        
-        <div class="castSheet">
-			<h2>Evidence Item: The difference between throw and throws in Java</h2>
-			<div class='castSheet_facts'>Posted on 09:19:49 06/05/2015 </div>
-	
-            <p>Throws clause in used to declare an exception and throw keyword is used to throw an exception explicitly.</p>
-            <p>Taiwan (ROC) has also established meteorological stations in the Spratly Islands, and further north in the Pratas Islands. These include a weather station on Taiping island (Itu Aba in the Spratly Islands), which collects information using surface instruments and launches weather balloons daily</p>
-            <p>The keyword throw is used inside method body to invoke an exception and throws clause is used in method declaration (signature).</p>
-            <div class="castSheet_share"><a>Read More</a><a>Evidence Source</a> <a>Confidence Raing: 4.5</a> <a>My Raing: 0.5</a></div>
-            <div class="clear"></div>
-        </div>
-        <div class="castSheet">
-			<h2>Evidence Item: Java (programming language)</h2>
-			<div class='castSheet_facts'>Posted on 09:19:49 06/05/2015 </div>
-	
-            <p>Throws clause in used to declare an exception and throw keyword is used to throw an exception explicitly.</p>
-            <p>The original and reference implementation Java compilers, virtual machines, and class libraries were originally released by Sun under proprietary licences. As of May 2007, in compliance with the specifications of the Java Community Process, Sun relicensed most of its Java technologies under the GNU General Public License. Others have also developed alternative implementations of these Sun technologies, such as the GNU Compiler for Java (bytecode compiler), GNU Classpath (standard libraries), and IcedTea-Web (browser plugin for applets).</p>
-            <div class="castSheet_share"><a>Read More</a><a>Evidence Source</a> <a>Confidence Raing: 4.5</a> <a>My Raing: 0.5</a></div>
-            <div class="clear"></div>
-        </div>
-        <div class="castSheet">
-			<h2>Evidence Item: The difference between throw and throws in Java</h2>
-			<div class='castSheet_facts'>Posted on 09:19:49 06/05/2015 </div>
-	
-            <p>Throws clause in used to declare an exception and throw keyword is used to throw an exception explicitly.</p>
-            <p>If we see syntax wise than throw is followed by an instance variable and throws is followed by exception class names.</p>
-            <p>The keyword throw is used inside method body to invoke an exception and throws clause is used in method declaration (signature).</p>
-            <div class="castSheet_share"><a>Read More</a><a>Evidence Source</a></div>
-            <div class="clear"></div>
-            <div class="castSheet_facts"><a>Confidence Raing: 4.5</a> | <a>My Raing: 0.5</a></div>
-        </div>
+        <?php showItemList(); ?>
     
   </div>
 <div class="clear"></div>

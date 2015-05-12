@@ -18,7 +18,7 @@ body{
 }
 
 a{
-	color: #0066FF;
+	color: #000;
 	text-decoration:none;
 }
 a:hover{
@@ -364,4 +364,24 @@ Footer
 }
 .footer p{
 	text-align:center;
+}
+/*******
+Generics
+********/
+.articleListTable{
+	border:1px solid #f0f0f0;
+	border-radius:6px;
+	margin:0.5em;
+	padding:0;
+}
+.articleListTable td{
+	margin:0;
+	padding:0.4em 0.6em;
+	border:0;
+}
+.trGray{
+	background-color:#f0f0f0;
+}
+.articleListTable tr:hover{
+	background-color:#e0e0e0;
 }

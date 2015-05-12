@@ -27,6 +27,11 @@
         <div class="castSheet">
         <h2>My Sumitted Papers</h2>
             <div class="inputFormDiv">
+            <table class="articleListTable" cellpadding="0" cellspacing="0">
+            <tr class = 'trGray'>
+            	<td>ID</td>
+                <td>Title</td>
+            </tr>
                 <?php
 					$uid = $_SESSION['user']->getUid();
 					require_once('./system/db.php');
@@ -34,12 +39,19 @@
 					$sql = "select * from `evidenceitem` WHERE `uid` = '$uid'";
 					$query = $db->query($sql);
 					$rows = $query->rows;
+					$i=1;
 					foreach($rows as $v){
+						
+						$trGray = ($i%2 ==0)?"class = 'trGray'":"";
+						echo "<tr $trGray >";
 						$title = $v['title'];
 						$iid = $v['iid'];
-						echo "<p><a href='$iid'>$title</a></p>";
+						echo "<td>$iid </td><td><a href='$iid'>$title</a></td>";
+						echo "</tr>";
+						$i++;
 					}
 				?>
+             </table>
             </div>
         </div>
     
