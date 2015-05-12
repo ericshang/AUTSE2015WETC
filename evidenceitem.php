@@ -5,6 +5,7 @@
 class EvidenceItem{
 	private $iid;
 	private $method_id;
+	private $title;
 	private $why;
 	private $who;
 	private $what;
@@ -14,18 +15,21 @@ class EvidenceItem{
 	private $benefit;
 	private $result;
 	private $methodImplementation;
+	private $uid;
 
 	//constructor
-	public function __construct($iid ,$method_id ,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation){
-		$this->setEvidenceItem($iid ,$method_id ,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation);
+	public function __construct($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid){
+		$this->setEvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid);
 	}
 	
 	//create new Methogology
 	public function create(){
 		$result = false;
-		if($this->isExisted($this)==false){
+		
+		if(!($this->isExisted($this))){
 			$iid= $this->iid ;
 			$method_id= $this->method_id ;
+			$title= $this->title ;
 			$why = $this->why ;
 			$who = $this->who ;
 			$what = $this->what;
@@ -35,14 +39,25 @@ class EvidenceItem{
 			$benefit = $this->benefit;
 			$result = $this->result;
 			$methodImplementation = $this->methodImplementation;
+			$uid = $this->uid;
 			
-			$sql = "INSERT INTO  `EvidenceItem` (  `method_id`,`why`,`who` , `what`,`where`,`when` , `how`,`benefit`,`result` , `methodImplementation`) 
-					VALUES ( '$method_id','$why','$who',  '$what','$where','$when',  '$how','$benefit','$result',  '$methodImplementation');";
+			$sql = "INSERT INTO  `EvidenceItem` (`title` ,
+													`why` ,
+													`who` ,
+													`what` ,
+													`where` ,
+													`when` ,
+													`how` ,
+													`benefit` ,
+													`result` ,
+													`methodImplementation` ,
+													`method_id`,`uid`) 
+					VALUES ( '$title','$why','$who', '$what','$where','$when', '$how','$benefit','$result', '$methodImplementation','$method_id','$uid');";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
 				//repopulate the object
-				$sql2 = "SELECT * FROM  `EvidenceItem` WHERE `what` = '$what'";
+				$sql2 = "SELECT * FROM  `EvidenceItem` WHERE `title` = '$title'";
 				if($query = $db->query($sql2)){
 					$row =  $query->row;
 					$this->iid= $row['iid'];
@@ -72,9 +87,10 @@ class EvidenceItem{
 	public function update($tempNew){
 		$result = false;
 		
-		if($this->isExisted($this) && $tempNew->iid >0){
+		if($this->isExisted($this) && $tempNew->iid >0 && $tempNew->title != null){
 			$iid= $tempNew->iid ;
 			$method_id= $tempNew->method_id ;
+			$title= $tempNew->title ;
 			$why = $tempNew->why ;
 			$who = $tempNew->who ;
 			$what = $tempNew->what;
@@ -84,22 +100,24 @@ class EvidenceItem{
 			$benefit = $tempNew->benefit;
 			$result = $tempNew->result;
 			$methodImplementation = $tempNew->methodImplementation;
+			$dui= $tempNew->uid ;
 			
-			$sql = "UPDATE  `EvidenceItem` SET `method_id` = '".@mysql_escape_string($method_id)."',`why` = '".@mysql_escape_string($why)."',`who` = '".@mysql_escape_string($who)."`what` = '".@mysql_escape_string($what)."',`where` = '".@mysql_escape_string($where)."',`when` = '".@mysql_escape_string($when)."',`how` = '".@mysql_escape_string($how)."',`benefit` = '".@mysql_escape_string($benefit)."',`result` = '".@mysql_escape_string($result)."',`methodImplementation` = '".@mysql_escape_string($methodImplementation)."' WHERE `iid` = '".$this->iid."'";
+			$sql = "UPDATE  `EvidenceItem` SET `method_id` = '".@mysql_escape_string($method_id)."',`title` = '".@mysql_escape_string($title)."',`why` = '".@mysql_escape_string($why)."',`who` = '".@mysql_escape_string($who)."`what` = '".@mysql_escape_string($what)."',`where` = '".@mysql_escape_string($where)."',`when` = '".@mysql_escape_string($when)."',`how` = '".@mysql_escape_string($how)."',`benefit` = '".@mysql_escape_string($benefit)."',`result` = '".@mysql_escape_string($result)."',`methodImplementation` = '".@mysql_escape_string($methodImplementation)."',`uid` = '".@mysql_escape_string($uid)."' WHERE `iid` = '".$this->iid."'";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
 				//repopulate user
-				$this->setEvidenceItem($iid ,$method_id ,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation);
+				$this->setEvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid);
 				$result = true;
 			}
 		}
 		return $result;
 	}
 
-	private function setEvidenceItem($iid ,$method_id ,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation){
+	private function setEvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid){
 		$this->iid = $iid;
 		$this->method_id = $method_id;
+		$this->title = $title;
 		$this->why = $why;
 		$this->who = $who;
 		$this->what = $what;
@@ -109,11 +127,13 @@ class EvidenceItem{
 		$this->benefit = $benefit;
 		$this->result = $result;
 		$this->methodImplementation = $methodImplementation;
+		$this->uid = $uid;
 	}
 	
 	//gettters
 	public function getIid(){ return $this->iid; }
 	public function getMethodId(){ return $this->method_id; }
+	public function getTitle(){ return $this->title; }
 	public function getWhy(){ return $this->why; }
 	public function getWho(){ return $this->who; }
 	public function getWhat(){ return $this->what; }
@@ -123,12 +143,13 @@ class EvidenceItem{
 	public function getBenefit(){ return $this->benefit; }	
 	public function getResult(){ return $this->result; }
 	public function getMethodImplementation(){ return $this->methodImplementation; }
+	public function getUid(){ return $this->uid; }
 	
 	//check if the Methogology has existed
 	private function isExisted($EvidenceItem){
 		$result = false;
-		if($EvidenceItem->iid >0 && $EvidenceItem->what !=null){
-			$sql = "SELECT * FROM `EvidenceItem` WHERE `iid` = '".$EvidenceItem->iid."' AND `what` = '".$EvidenceItem->what."' ";
+		if($EvidenceItem->method_id >0 && $EvidenceItem->title !=null){
+			$sql = "SELECT * FROM `EvidenceItem` WHERE `method_id` = '".$EvidenceItem->method_id."' AND `title` = '".$EvidenceItem->title."' ";
 			require_once('./system/db.php');
 			$db = new DB();
 			$query = $db->query($sql);
@@ -144,15 +165,17 @@ class EvidenceItem{
 	public function isEqual($item){
 		return $this->iid === $item->iid  && 
 			   $this->method_id === $item->method_id  && 
-			   $this->why === $item->why
+			   $this->title === $item->title  && 
+			   $this->why === $item->why &&
 			   $this->who === $item->who  && 
 			   $this->what === $item->what  && 
-			   $this->where === $item->where
+			   $this->where === $item->where &&
 			   $this->when === $item->when  && 
 			   $this->how === $item->how  && 
 			   $this->benefit === $item->benefit &&
 			   $this->result === $item->result  && 
-			   $this->methodImplementation === $item->methodImplementation ;
+			   $this->methodImplementation === $item->methodImplementation &&
+			   $this->uid === $item->uid;
 	}
 	
 	
@@ -168,17 +191,18 @@ class EvidenceItem{
 				$row = $query->row;
 				$iid= $row['iid'];
 				$method_id= $row['method_id'];
+				$title= $row['title'];
 				$why = $row['why'];
 				$who = $row['who'];
 				$what = $row['what'];
 				$where =$row['where'];
 				$when = $row['when'];
 				$how = $row['how'];
-				$benefit = $row['benefit']
+				$benefit = $row['benefit'];
 				$result = $row['result'];
 				$methodImplementation = $row['methodImplementation'];
 				
-				$this->setEvidenceItem($iid ,$method_id ,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation);
+				$this->setEvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid);
 			}
 		}
 	}

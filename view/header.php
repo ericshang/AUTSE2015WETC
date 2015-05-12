@@ -34,7 +34,7 @@ require_once("./system/global.php");
 				$u = $_SESSION['user']; //must define __autoload() before session start, otherwise session can not convert to obj
 				$name = $u->getName();
 				$uid = $u->getUid();
-				echo "Hello, <a href='./usercenter.php?uid=$uid'>$name</a> | <a href='./login.php?act=logout'>logout</a>";
+				echo "Hello, <a href='./usercenter.php'>$name</a> | <a href='./login.php?act=logout'>logout</a>";
 			}else{
 				echo "<a href='./login.php'>User Login</a>";
 			}

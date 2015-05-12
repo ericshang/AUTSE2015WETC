@@ -20,4 +20,10 @@ function _redirect($url){
 	echo "<script>window.location.href='$url'</script>";
 }
 
+function showUserCenterNav(){
+	echo "<li><a href='?'>User Center</a></li>
+		<li><a href='?act=submitpaper'>Submit Papers</a></li>
+		<li><a href='?act=mysubmitpaper'>My Submit Papers</a></li>";
+}
+
 ?>

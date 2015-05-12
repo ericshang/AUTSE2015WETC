@@ -47,6 +47,8 @@ CREATE TABLE  `serller`.`Method` (
 
 CREATE TABLE  `serller`.`EvidenceItem` (
 `iid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`uid` INT NOT NULL, 
+`title` TINYTEXT NOT NULL,
 `method_id` INT NOT NULL,
 `why` TEXT NOT NULL ,
 `who` TEXT NOT NULL ,
@@ -55,7 +57,7 @@ CREATE TABLE  `serller`.`EvidenceItem` (
 `when` TEXT NOT NULL ,
 `how` TEXT NOT NULL ,
 `benefit` TEXT NOT NULL ,
-`result ` TEXT NOT NULL ,
+`result` TEXT NOT NULL ,
 `methodImplementation` TEXT NOT NULL 
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
