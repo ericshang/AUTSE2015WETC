@@ -46,7 +46,7 @@
 						echo "<tr $trGray >";
 						$title = $v['title'];
 						$iid = $v['iid'];
-						echo "<td>$iid </td><td><a href='$iid'>$title</a></td>";
+						echo "<td>$iid </td><td><a href='./?act=showItem&id=$iid'>$title</a></td>";
 						echo "</tr>";
 						$i++;
 					}

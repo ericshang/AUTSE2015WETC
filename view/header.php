@@ -19,13 +19,19 @@ require_once("./system/global.php");
 <!--header start-->
 <div class="boxHeader">
 	<div class="boxHeaderLeft">
-    	<h1>Serller</h1>
+    	<h1><a href="./">Serller</a></h1>
     </div>
     <div class="boxHeaderRight">
     	<ul class="headerNavUl" id="headerNavUl">
 			<li><a href="./">Home</a></li>
+            <?php
+				if(isset($_SESSION['user'])){
+					echo "<li><a href='./usercenter.php'>User Center</a></li>";
+				}
+			
+			 ?>
              <li>About Serller</li>
-             <li><a href="https://www.linkedin.com/in/ericshang">The Developer</a></li>
+             <li><a href="https://www.linkedin.com/in/ericshang">D!</a></li>
         </ul>
     </div>
     <div class="headerBoxSmallNav">
@@ -36,7 +42,7 @@ require_once("./system/global.php");
 				$uid = $u->getUid();
 				echo "Hello, <a href='./usercenter.php'>$name</a> | <a href='./login.php?act=logout'>logout</a>";
 			}else{
-				echo "<a href='./login.php'>User Login</a>";
+				echo "<a href='./login.php'>User Login</a> | <a href='./login.php?act=reg'>Register</a>";
 			}
 		?>
     </div>

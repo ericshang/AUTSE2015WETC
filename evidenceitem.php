@@ -41,7 +41,7 @@ class EvidenceItem{
 			$methodImplementation = $this->methodImplementation;
 			$uid = $this->uid;
 			
-			$sql = "INSERT INTO  `EvidenceItem` (`title` ,
+			$sql = "INSERT INTO  `evidenceitem` (`title` ,
 													`why` ,
 													`who` ,
 													`what` ,
@@ -57,7 +57,7 @@ class EvidenceItem{
 			$db = new DB();
 			if($db->query($sql)){
 				//repopulate the object
-				$sql2 = "SELECT * FROM  `EvidenceItem` WHERE `title` = '$title'";
+				$sql2 = "SELECT * FROM  `evidenceitem` WHERE `title` = '$title'";
 				if($query = $db->query($sql2)){
 					$row =  $query->row;
 					$this->iid= $row['iid'];
@@ -73,7 +73,7 @@ class EvidenceItem{
 		//to do
 		
 		if($this->isExisted($this)){
-			$sql = "DELETE FROM `EvidenceItem` WHERE `iid` = '".$this->iid."'";
+			$sql = "DELETE FROM `evidenceitem` WHERE `iid` = '".$this->iid."'";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
@@ -102,7 +102,7 @@ class EvidenceItem{
 			$methodImplementation = $tempNew->methodImplementation;
 			$dui= $tempNew->uid ;
 			
-			$sql = "UPDATE  `EvidenceItem` SET `method_id` = '".@mysql_escape_string($method_id)."',`title` = '".@mysql_escape_string($title)."',`why` = '".@mysql_escape_string($why)."',`who` = '".@mysql_escape_string($who)."`what` = '".@mysql_escape_string($what)."',`where` = '".@mysql_escape_string($where)."',`when` = '".@mysql_escape_string($when)."',`how` = '".@mysql_escape_string($how)."',`benefit` = '".@mysql_escape_string($benefit)."',`result` = '".@mysql_escape_string($result)."',`methodImplementation` = '".@mysql_escape_string($methodImplementation)."',`uid` = '".@mysql_escape_string($uid)."' WHERE `iid` = '".$this->iid."'";
+			$sql = "UPDATE  `evidenceitem` SET `method_id` = '".@mysql_escape_string($method_id)."',`title` = '".@mysql_escape_string($title)."',`why` = '".@mysql_escape_string($why)."',`who` = '".@mysql_escape_string($who)."`what` = '".@mysql_escape_string($what)."',`where` = '".@mysql_escape_string($where)."',`when` = '".@mysql_escape_string($when)."',`how` = '".@mysql_escape_string($how)."',`benefit` = '".@mysql_escape_string($benefit)."',`result` = '".@mysql_escape_string($result)."',`methodImplementation` = '".@mysql_escape_string($methodImplementation)."',`uid` = '".@mysql_escape_string($uid)."' WHERE `iid` = '".$this->iid."'";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
@@ -149,7 +149,7 @@ class EvidenceItem{
 	private function isExisted($EvidenceItem){
 		$result = false;
 		if($EvidenceItem->method_id >0 && $EvidenceItem->title !=null){
-			$sql = "SELECT * FROM `EvidenceItem` WHERE `method_id` = '".$EvidenceItem->method_id."' AND `title` = '".$EvidenceItem->title."' ";
+			$sql = "SELECT * FROM `evidenceitem` WHERE `method_id` = '".$EvidenceItem->method_id."' AND `title` = '".$EvidenceItem->title."' ";
 			require_once('./system/db.php');
 			$db = new DB();
 			$query = $db->query($sql);

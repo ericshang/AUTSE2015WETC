@@ -2,7 +2,7 @@
 * @author Eric Shang @ nexs.co.nz
 */
 
-CREATE TABLE  `serller`.`user` (
+CREATE TABLE `user` (
 `uid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `email`  TINYTEXT  NOT NULL ,
 `password` TINYTEXT  NOT NULL ,
@@ -13,7 +13,7 @@ CREATE TABLE  `serller`.`user` (
 `organization` TINYTEXT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE  `serller`.`admin` (
+CREATE TABLE  `admin` (
 `uid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `password` TINYTEXT  NOT NULL ,
 `regtime` INT NOT NULL ,
@@ -24,19 +24,19 @@ CREATE TABLE  `serller`.`admin` (
 `organization` TINYTEXT NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-INSERT INTO  `serller`.`admin` ( `uid` ,  `password` , `regtime` , `role` , `email` , `activate` ,`name` , `organization`)
+INSERT INTO `admin` ( `uid` ,  `password` , `regtime` , `role` , `email` , `activate` ,`name` , `organization`)
  VALUES (NULL ,   '123456',  '0',  '10',  'master@serller',  '1',  'Site Master',  'AUT');
 
 
 
-CREATE TABLE  `serller`.`methodology` (
+CREATE TABLE  `methodology` (
 `mid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 `name` TINYTEXT NOT NULL ,
 `description` TEXT NOT NULL 
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
-CREATE TABLE  `serller`.`Method` (
+CREATE TABLE  `Method` (
 `method_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 `mid` INT NOT NULL,
 `name` TINYTEXT NOT NULL ,
@@ -45,7 +45,7 @@ CREATE TABLE  `serller`.`Method` (
 
 
 
-CREATE TABLE  `serller`.`EvidenceItem` (
+CREATE TABLE  `EvidenceItem` (
 `iid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `uid` INT NOT NULL, 
 `title` TINYTEXT NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE  `serller`.`EvidenceItem` (
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
-CREATE TABLE  `serller`.`EvidenceSource` (
+CREATE TABLE  `EvidenceSource` (
 `esid` NT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `iid` INT NOT NULL,
 `bibref ` TEXT NOT NULL ,
@@ -76,24 +76,24 @@ CREATE TABLE  `serller`.`EvidenceSource` (
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
-CREATE TABLE  `serller`.`CredibilityRating` (
+CREATE TABLE  `CredibilityRating` (
 `esid` INT NOT NULL ,
 `credibilitylevel` INT NOT NULL ,
 `reason` TEXT NOT NULL ,
 `rater` INT NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-ALTER TABLE  `credibilityrating` ADD PRIMARY KEY (  `esid`,`rater` );
+ALTER TABLE  `CredibilityRating` ADD PRIMARY KEY (  `esid`,`rater` );
 
 
 
 
-CREATE TABLE  `serller`.`ConfidenceRating` (
+CREATE TABLE  `ConfidenceRating` (
 `iid` INT NOT NULL ,
 `credibilitylevel` INT NOT NULL ,
 `reason` TEXT NOT NULL ,
 `rater` INT NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-ALTER TABLE  `confidencerating` ADD PRIMARY KEY (  `iid`,`rater` );
+ALTER TABLE  `ConfidenceRating` ADD PRIMARY KEY (  `iid`,`rater` );
 
