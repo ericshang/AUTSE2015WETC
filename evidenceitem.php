@@ -100,9 +100,10 @@ class EvidenceItem{
 			$benefit = $tempNew->benefit;
 			$result = $tempNew->result;
 			$methodImplementation = $tempNew->methodImplementation;
-			$dui= $tempNew->uid ;
+			$uid= $tempNew->uid ;
 			
-			$sql = "UPDATE  `evidenceitem` SET `method_id` = '".@mysql_escape_string($method_id)."',`title` = '".@mysql_escape_string($title)."',`why` = '".@mysql_escape_string($why)."',`who` = '".@mysql_escape_string($who)."`what` = '".@mysql_escape_string($what)."',`where` = '".@mysql_escape_string($where)."',`when` = '".@mysql_escape_string($when)."',`how` = '".@mysql_escape_string($how)."',`benefit` = '".@mysql_escape_string($benefit)."',`result` = '".@mysql_escape_string($result)."',`methodImplementation` = '".@mysql_escape_string($methodImplementation)."',`uid` = '".@mysql_escape_string($uid)."' WHERE `iid` = '".$this->iid."'";
+			$sql = "UPDATE  `evidenceitem` SET `method_id` = '".@mysql_escape_string($method_id)."',`title` = '".@mysql_escape_string($title)."',`why` = '".@mysql_escape_string($why)."', `who` = '".@mysql_escape_string($who)."', `what` = '".@mysql_escape_string($what)."',`where` = '".@mysql_escape_string($where)."',`when` = '".@mysql_escape_string($when)."',`how` = '".@mysql_escape_string($how)."',`benefit` = '".@mysql_escape_string($benefit)."',`result` = '".@mysql_escape_string($result)."',`methodImplementation` = '".@mysql_escape_string($methodImplementation)."',`uid` = '".@mysql_escape_string($uid)."' WHERE `iid` = '".$this->iid."'";
+			
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){

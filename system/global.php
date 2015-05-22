@@ -23,7 +23,10 @@ function _redirect($url){
 function showUserCenterNav(){
 	echo "<li><a href='?'>User Center</a></li>
 		<li><a href='?act=submitpaper'>Submit Papers</a></li>
-		<li><a href='?act=mysubmitpaper'>My Submit Papers</a></li>";
+		<li><a href='?act=mysubmitpaper'>My Submit Papers</a></li>
+		<li><a href='?act=editpaper'>Edit Paper</a></li>
+		";
+		
 }
 
 ?>

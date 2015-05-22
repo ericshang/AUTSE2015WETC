@@ -8,8 +8,9 @@ if($_action=="submitpaper"){
 	require_once("./view/header.php");
 	require_once("./view/submitpaper.php");
 	require_once("./view/footer.php");
-}else if($_action=="doSubmitPaper"){
+}else if($_action=="doSubmitPaper" || $_action=="doEditPaper"){
 	$_title = "Submit Paper - ";
+	
 	if(isset($_POST) && isset($_POST['method_id']) && isset($_POST['title']) && $_POST['title'] !="" && $_POST['method_id']>0){
 		$uid = $_SESSION['user']->getUid();
 		$iid = 0 ;
@@ -25,23 +26,56 @@ if($_action=="submitpaper"){
 		$result = $_POST['result'];
 		$methodImplementation = $_POST['methodImplementation'];
 		
-		$evidenceItem = new EvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid);
-		if($evidenceItem->create()){
-			echo "New Evidence Item Created!";
-			$url ="?act=submitpaper";
-		}else{
-			echo "Misson Failed!";
-			$url ="?act=submitpaper";
+		
+		
+		if($_action=="doSubmitPaper"){
+			$evidenceItem = new EvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid);			
+			if($evidenceItem->create()){
+				echo "New Evidence Item Created!";
+				$url ="?act=submitpaper";
+			}else{
+				echo "Misson Failed!";
+				$url ="?act=submitpaper";
+			}
+		}else if($_action=="doEditPaper" && $_SESSION['user']->getUid() == (int)$_POST['uid']){
+			$iid = (int)$_POST['iid'];
+			$uid = (int)$_POST['uid'];
+			
+			$evidenceItem = new EvidenceItem($iid ,$method_id ,$title,$why,$who,$what,$where,$when,$how,$benefit,$result,$methodImplementation,$uid);			
+			
+			
+			
+			
+			if($evidenceItem->update($evidenceItem)){
+				echo "Evidence Item Updated!";
+				$url ="?act=mysubmitpaper";
+			}else{
+				echo "Misson Failed!";
+				$url ="?";
+			}
+			
 		}
 	}else{
 		echo "Field empty!";
+		
 		$url ="?act=submitpaper";
 	}
+	echo $url;
 	_redirect($url);
 }else if($_action == 'mysubmitpaper'){
 	$_title = "My Submitted Papers - ";
 	require_once("./view/header.php");
 	require_once("./view/mysubmitpaper.php");
+	require_once("./view/footer.php");
+}else if($_action == "editpaper"){
+	$_title = "Edit Paper - ";
+	require_once("./view/header.php");
+	require_once("./view/editpaper.php");
+	require_once("./view/footer.php");
+}else if($_action == "editEvidenceSource"){
+	$_title = "Edit Evidence Source - ";
+	require_once("./view/header.php");
+	require_once("./view/editpaper.php");
 	require_once("./view/footer.php");
 }else{
 	$_title = "User Center - ";
