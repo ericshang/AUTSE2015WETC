@@ -8,10 +8,10 @@ if($_action=="submitpaper"){
 	require_once("./view/header.php");
 	require_once("./view/submitpaper.php");
 	require_once("./view/footer.php");
-}else if($_action=="doSubmitPaper" || $_action=="doEditPaper"){
+}else if($_action=="doSubmitPaper" || $_action=="doEditPaper" ){
 	$_title = "Submit Paper - ";
 	
-	if(isset($_POST) && isset($_POST['method_id']) && isset($_POST['title']) && $_POST['title'] !="" && $_POST['method_id']>0){
+	if(isset($_POST) && isset($_POST['method_id']) && isset($_POST['title']) && $_POST['title'] != "" && $_POST['method_id']>0){
 		$uid = $_SESSION['user']->getUid();
 		$iid = 0 ;
 		$method_id = $_POST['method_id'];
