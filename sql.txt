@@ -1,5 +1,6 @@
 /**
 * @author Eric Shang @ nexs.co.nz
+* @modify Tim Shi
 */
 
 CREATE TABLE `user` (
