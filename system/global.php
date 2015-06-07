@@ -24,10 +24,20 @@ function _alert($msg){
 }
 
 function showUserCenterNav(){
-	echo "<li><a href='?'>User Center</a></li>
+	echo "
+		<li><a href='?'>User Center</a></li>
 		<li><a href='?act=submitpaper'>Submit Papers</a></li>
-		<li><a href='?act=mysubmitpaper'>My Submit Papers</a></li>
-		<li><a href='?act=editpaper'>Edit Paper</a></li>
+		<li><a href='?act=mysubmitpaper'>My Submit Papers</a></li>	
+		";
+		
+}
+function showHeaderUserCenterNav(){
+	echo "
+		<ul class='headerNavDropDownUL'>
+			<li><a href='usercenter.php?act=submitpaper'>Submit Papers</a></li>
+			<li><a href='usercenter.php?act=mysubmitpaper'>My Submit Papers</a></li>
+		</ul>
+		
 		";
 		
 }

@@ -24,12 +24,22 @@ require_once("./system/global.php");
     <div class="boxHeaderRight">
     	<ul class="headerNavUl" id="headerNavUl">
 			<li><a href="./">Home</a></li>
+            <li>User Center
+				
+					<div class='headerNavDropDown'>
+                    
+                    <?php showHeaderUserCenterNav(); ?>
+                    
+                    </div>
+
+				
+			</li>
             <?php
 				/*if(isset($_SESSION['user'])){
 					echo "<li><a href='./usercenter.php'>User Center</a></li>";
 				}*/
 				//open user center without login
-				echo "<li><a href='./usercenter.php'>User Center</a></li>";
+				//echo "<li><a href='./usercenter.php'>User Center</a></li>";
 			
 			 ?>
              <li><a href="./search.php">Search</a></li>
