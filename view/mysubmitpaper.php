@@ -33,7 +33,7 @@
                 <td>Title</td><td width="150">Operation</td>
             </tr>
                 <?php
-					$uid = $_SESSION['user']->getUid();
+					$uid = isset($_SESSION['user'])? $_SESSION['user']->getUid(): 0 ;
 					require_once('./system/db.php');
 					$db=new DB();
 					$sql = "select * from `evidenceitem` WHERE `uid` = '$uid'";

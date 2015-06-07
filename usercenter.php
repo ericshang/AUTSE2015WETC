@@ -12,7 +12,7 @@ if($_action=="submitpaper"){
 	$_title = "Submit Paper - ";
 	
 	if(isset($_POST) && isset($_POST['method_id']) && isset($_POST['title']) && $_POST['title'] !="" && $_POST['method_id']>0){
-		$uid = $_SESSION['user']->getUid();
+		$uid = isset($_SESSION['user'])? $_SESSION['user']->getUid(): 0 ;
 		$iid = 0 ;
 		$method_id = $_POST['method_id'];
 		$title = $_POST['title'];

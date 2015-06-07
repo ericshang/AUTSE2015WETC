@@ -12,10 +12,10 @@ if(!isset($_GET['id'])){
 	$evidenceItem = new EvidenceItem($iid , null ,null,null,null,null,null,null,null,null,null,null,null);
 	$evidenceItem->retrieve($iid);
 	
-	if($evidenceItem->getUid() != $_SESSION['user']->getUid()){
+	/*if($evidenceItem->getUid() != $_SESSION['user']->getUid()){
 		//$url = "./";
 		//_redirect($url);
-	}
+	}*/
 	$iid = $evidenceItem->getIid();
 	$method_id = $evidenceItem->getMethodId();
 	$title = $evidenceItem->getTitle();
@@ -31,6 +31,7 @@ if(!isset($_GET['id'])){
 	
 }
 
+$uid = isset($_SESSION['user'])?$_SESSION['user']->getUid() : 0 ;
 
 ?>
 
@@ -59,7 +60,7 @@ if(!isset($_GET['id'])){
                 <form method="post" action="?act=doEditPaper">
                 <p>Title: <br /><input type="text" name="title" class="inputFormDivInput" value = '<?php echo $title; ?>'/> *</p>
                 <input type="hidden" name="iid" value="<?php echo $iid; ?>" />
-                <input type="hidden" name="uid" value="<?php echo $_SESSION['user']->getUid(); ?>" />
+                <input type="hidden" name="uid" value="<?php echo $uid; ?>" />
                 <p><select name="method_id">
 				<option value='0'>Select Method</option>
 				<?php 

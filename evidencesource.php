@@ -13,10 +13,12 @@ class EvidenceSource{
 	private $metrics;
 	private $submitby;
 	private $approved;
+	private $author;
+	private $year;
 
 	//constructor
-	public function __construct($esid ,$iid ,$bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved){
-		$this->setEvidenceSource($esid,$iid ,$bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved);
+	public function __construct($esid ,$iid ,$bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved ,$author,$year){
+		$this->setEvidenceSource($esid,$iid ,$bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved,$author,$year);
 	}
 	
 	//create new Methogology
@@ -33,9 +35,11 @@ class EvidenceSource{
 			$metrics = $this->metrics;
 			$submitby = $this->submitby;
 			$approved = $this->approved;
+			$author = $this->author;
+			$year = $this->year;
 			
-			$sql = "INSERT INTO  `EvidenceSource` ( `iid`,`bibref` , `researchlevel`,`question`,`method` , `participants`,`metrics`,`submitby` , `approved`) 
-					VALUES ('$iid' '$bibref',  '$researchlevel','$question','$method',  '$participants','$metrics','$submitby',  '$approved');";
+			$sql = "INSERT INTO  `EvidenceSource` ( `iid`,`bibref` , `researchlevel`,`question`,`method` , `participants`,`metrics`,`submitby` , `approved`,`author`,`yaer`) 
+					VALUES ('$iid' '$bibref',  '$researchlevel','$question','$method',  '$participants','$metrics','$submitby',  '$approved', '$author','$year');";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
@@ -80,20 +84,22 @@ class EvidenceSource{
 			$metrics = $tempNew->metrics;
 			$submitby = $tempNew->submitby;
 			$approved = $tempNew->approved;
+			$author = $tempNew->author;
+			$year = $tempNew->year;
 			
-			$sql = "UPDATE  `EvidenceSource` SET `iid` = '".@mysql_escape_string($iid)."',`bibref` = '".@mysql_escape_string($bibref)."',`researchlevel` = '".@mysql_escape_string($researchlevel)."',`question` = '".@mysql_escape_string($question)."`method` = '".@mysql_escape_string($method)."',`participants` = '".@mysql_escape_string($participants)."',`metrics` = '".@mysql_escape_string($metrics)."',`submitby` = '".@mysql_escape_string($submitby)."',`approved` = '".@mysql_escape_string($approved)."' WHERE `esid` = '".$this->esid."'";
+			$sql = "UPDATE  `EvidenceSource` SET `iid` = '".@mysql_escape_string($iid)."',`bibref` = '".@mysql_escape_string($bibref)."',`researchlevel` = '".@mysql_escape_string($researchlevel)."',`question` = '".@mysql_escape_string($question)."`method` = '".@mysql_escape_string($method)."',`participants` = '".@mysql_escape_string($participants)."',`metrics` = '".@mysql_escape_string($metrics)."',`submitby` = '".@mysql_escape_string($submitby)."',`approved` = '".@mysql_escape_string($approved)."',`author` = '".@mysql_escape_string($author)."',`year` = '".@mysql_escape_string($year)."' WHERE `esid` = '".$this->esid."'";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
 				//repopulate user
-				$this->setEvidenceSource($this->esid ,$iid, $bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved);
+				$this->setEvidenceSource($this->esid ,$iid, $bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved,$author,$year);
 				$result = true;
 			}
 		}
 		return $result;
 	}
 
-	private function setEvidenceSource($esid ,$iid, $bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved){
+	private function setEvidenceSource($esid ,$iid, $bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved,$author,$year){
 		$this->esid = $esid;
 		$this->iid = $iid;
 		$this->bibref = $bibref;
@@ -104,6 +110,8 @@ class EvidenceSource{
 		$this->metrics = $metrics;
 		$this->submitby = $submitby;
 		$this->approved = $approved;
+		$this->author = $author;
+		$this->year = $year;
 	}
 	
 	//gettters
@@ -116,6 +124,8 @@ class EvidenceSource{
 	public function getMetrics(){ return $this->metrics; }
 	public function getSubmitby(){ return $this->submitby; }
 	public function getApproved(){ return $this->approved; }
+	public function getAuthor(){ return $this->author; }
+	public function getYear(){ return $this->year; }
 	
 	//check if the Methogology has existed
 	private function isExisted($EvidenceSource){
@@ -147,7 +157,9 @@ class EvidenceSource{
 			   $this->participants === $es->participants
 			   $this->metrics === $es->metrics  && 
 			   $this->submitby === $es->submitby  && 
-			   $this->approved === $es->approved  ;
+			   $this->approved === $es->approved  &&
+			   $this->author === $es->author  &&
+			   $this->year === $es->year  ;
 	}
 	
 	//retrieve object by primary key
@@ -171,8 +183,10 @@ class EvidenceSource{
 				$metrics = $row['metrics'];
 				$submitby = $row['submitby'];
 				$approved = $row['approved'];
+				$author = $row['author'];
+				$year = $row['year'];
 				
-				$this->setEvidenceSource($esid ,$iid, $bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved);
+				$this->setEvidenceSource($esid ,$iid, $bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved,$author,$year);
 				$result = true;
 			}
 		}
