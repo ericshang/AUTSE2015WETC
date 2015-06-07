@@ -6,7 +6,7 @@ require_once("./system/global.php");
 
 function showSearchResult(){
 	$defualtAndOr = 1;// "And"
-	if(isset($_POST['title'])){
+	if(isset($_POST['title']) && strlen($_POST['title'])>0){
 		$authorSql = "";
 		$yearSql = "";
 		$resultSql ="";
@@ -72,7 +72,7 @@ function showSearchResult(){
 		if($num_rows >0 ){		
 		
 			echo "<table class='articleListTable'>";
-			echo "<tr class='trHeader'><td>id</td><td>title</td><td>author</td><td>year</td><td>metrics</td></tr>";
+			echo "<tr class='trHeader'><td>id</td><td style='width: 60%'>title</td><td>author</td><td>year</td><td>metrics</td></tr>";
 			$counter = 1;
 			foreach($rows as $row){
 				$iid = $row['iid'];
@@ -84,13 +84,15 @@ function showSearchResult(){
 				$trClass = $counter%2 ==0 ?" class ='trGray' ":"";
 				
 				
-				echo "<tr $trClass ><td>$iid</td><td><a href='./?act=showItem&id=$iid' >$title</a></td><td>$author</td><td>$year</td><td>$metrics</td></tr>";
+				echo "<tr $trClass ><td>$iid</td><td><a href='./?act=showItem&id=$iid' target= _blank>$title</a></td><td>$author</td><td>$year</td><td>$metrics</td></tr>";
 				$counter++;
 			}
 			echo "</table>";
 		}else{
-			echo "No Result Found. ";
+			echo "<div class='warning'>No Result Found. </div>";
 		}
+	}else{
+		echo "<div class='warning'>Title is empty!</div>";
 	}
 	
 }

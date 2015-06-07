@@ -19,10 +19,11 @@ body{
 
 a{
 	color: #000;
-	text-decoration:underline;
+	text-decoration:none;
 }
 a:hover{
 	cursor:pointer;
+	text-decoration:underline;
 }
 h1, h2, h3, h4, h5{
 	margin:0;
@@ -373,6 +374,7 @@ Generics
 	border-radius:6px;
 	margin:0.5em;
 	padding:0;
+	width:100%;
 }
 .articleListTable td{
 	margin:0;
@@ -387,4 +389,9 @@ Generics
 }
 .articleListTable tr:hover{
 	background-color:#e0e0e0;
+}
+.warning{
+	padding:10px;
+	color:#FF0000;
+	font-weight:bold;
 }
