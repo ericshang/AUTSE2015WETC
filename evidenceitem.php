@@ -88,19 +88,19 @@ class EvidenceItem{
 		$result = false;
 		
 		if($this->isExisted($this) && $tempNew->iid >0 && $tempNew->title != null){
-			$iid= $tempNew->iid ;
-			$method_id= $tempNew->method_id ;
-			$title= $tempNew->title ;
-			$why = $tempNew->why ;
-			$who = $tempNew->who ;
-			$what = $tempNew->what;
-			$where = $tempNew->where;
-			$when = $tempNew->when;
-			$how = $tempNew->how;
-			$benefit = $tempNew->benefit;
-			$result = $tempNew->result;
-			$methodImplementation = $tempNew->methodImplementation;
-			$uid= $tempNew->uid ;
+			$iid= $tempNew->getIid() ;
+			$method_id= $tempNew->getMethodId() ;
+			$title= $tempNew->getTitle() ;
+			$why = $tempNew->getWhy() ;
+			$who = $tempNew->getWho() ;
+			$what = $tempNew->getWhat();
+			$where = $tempNew->getWhere();
+			$when = $tempNew->getWhen();
+			$how = $tempNew->getHow();
+			$benefit = $tempNew->getBenefit();
+			$result = $tempNew->getResult();
+			$methodImplementation = $tempNew->getMethodImplementation();
+			$uid= $tempNew->getUid() ;
 			
 			$sql = "UPDATE  `evidenceitem` SET `method_id` = '".@mysql_escape_string($method_id)."',`title` = '".@mysql_escape_string($title)."',`why` = '".@mysql_escape_string($why)."', `who` = '".@mysql_escape_string($who)."', `what` = '".@mysql_escape_string($what)."',`where` = '".@mysql_escape_string($where)."',`when` = '".@mysql_escape_string($when)."',`how` = '".@mysql_escape_string($how)."',`benefit` = '".@mysql_escape_string($benefit)."',`result` = '".@mysql_escape_string($result)."',`methodImplementation` = '".@mysql_escape_string($methodImplementation)."',`uid` = '".@mysql_escape_string($uid)."' WHERE `iid` = '".$this->iid."'";
 			

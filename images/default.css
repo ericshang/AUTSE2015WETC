@@ -336,13 +336,13 @@ Main body
 	padding:0;
 }
 .inputFormDivInput{
-	width:300px;
+	width:500px;
 	height:30px;
 	padding:0.2em 0.4em;
 }
 .inputFormDiv textarea{
 	width:600px;
-	height:100px;
+	height:80px;
 	padding:0.2em 0.4em;
 }
 .inputSubmit{

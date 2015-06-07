@@ -19,6 +19,9 @@ $_page =isset($_GET['page'])? (int)($_GET['page']) : "";
 function _redirect($url){
 	echo "<script>window.location.href='$url'</script>";
 }
+function _alert($msg){
+	echo "<script> alert('$msg'); </script>";
+}
 
 function showUserCenterNav(){
 	echo "<li><a href='?'>User Center</a></li>

@@ -26,7 +26,7 @@ class EvidenceSource{
 		$result = false;
 		if($this->isExisted($this)==false){
 			$esid= $this->esid ;
-			$esid= $this->iid ;//must not be null
+			$iid= $this->iid ;//must not be null
 			$bibref= $this->bibref ;
 			$researchlevel = $this->researchlevel ;
 			$question = $this->question ;
@@ -38,8 +38,8 @@ class EvidenceSource{
 			$author = $this->author;
 			$year = $this->year;
 			
-			$sql = "INSERT INTO  `EvidenceSource` ( `iid`,`bibref` , `researchlevel`,`question`,`method` , `participants`,`metrics`,`submitby` , `approved`,`author`,`yaer`) 
-					VALUES ('$iid' '$bibref',  '$researchlevel','$question','$method',  '$participants','$metrics','$submitby',  '$approved', '$author','$year');";
+			$sql = "INSERT INTO  `serller`.`evidencesource` (`iid` ,`bibref` ,`researchlevel` ,`question` ,`method` ,`participants` ,`metrics` ,`submitby` ,`approved` ,`author` ,`year`)
+					VALUES ('$iid', '$bibref', '$researchlevel','$question','$method',  '$participants','$metrics','$submitby',  '$approved', '$author','$year');";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
@@ -73,21 +73,21 @@ class EvidenceSource{
 	//use a new object to update current one
 	public function update($tempNew){
 		$result = false;		
-		if($this->isExisted($this) && $tempNew->esid >0 && $tempNew->esid == $this->esid  && $tempNew->iid >0 && !empty($tempNew->bibref) ){
-			$esid= $tempNew->esid ;
-			$iid= $tempNew->iid ;
-			$bibref= $tempNew->bibref ;
-			$researchlevel = $tempNew->researchlevel ;
-			$question = $tempNew->question ;
-			$method = $tempNew->method;
-			$participants = $tempNew->participants;
-			$metrics = $tempNew->metrics;
-			$submitby = $tempNew->submitby;
-			$approved = $tempNew->approved;
-			$author = $tempNew->author;
-			$year = $tempNew->year;
+		if($this->isExisted($this) && $tempNew->getEsId() >0 && $tempNew->getEsId() == $this->getEsId()  && $tempNew->getIid() >0 && !empty($tempNew->getBibRef()) ){
+			$esid= $tempNew->getEsId() ;
+			$iid= $tempNew->getIid();
+			$bibref= $tempNew->getBibRef() ;
+			$researchlevel = $tempNew->getResearchLevel() ;
+			$question = $tempNew->getQuestion() ;
+			$method = $tempNew->getMethod();
+			$participants = $tempNew->getParticipants();
+			$metrics = $tempNew->getMetrics();
+			$submitby = $tempNew->getSubmitby();
+			$approved = $tempNew->getApproved();
+			$author = $tempNew->getAuthor();
+			$year = $tempNew->getYear();
 			
-			$sql = "UPDATE  `EvidenceSource` SET `iid` = '".@mysql_escape_string($iid)."',`bibref` = '".@mysql_escape_string($bibref)."',`researchlevel` = '".@mysql_escape_string($researchlevel)."',`question` = '".@mysql_escape_string($question)."`method` = '".@mysql_escape_string($method)."',`participants` = '".@mysql_escape_string($participants)."',`metrics` = '".@mysql_escape_string($metrics)."',`submitby` = '".@mysql_escape_string($submitby)."',`approved` = '".@mysql_escape_string($approved)."',`author` = '".@mysql_escape_string($author)."',`year` = '".@mysql_escape_string($year)."' WHERE `esid` = '".$this->esid."'";
+			$sql = "UPDATE  `EvidenceSource` SET `iid` = '".@mysql_escape_string($iid)."',`bibref` = '".@mysql_escape_string($bibref)."',`researchlevel` = '".@mysql_escape_string($researchlevel)."',`question` = '".@mysql_escape_string($question)."', `method` = '".@mysql_escape_string($method)."',`participants` = '".@mysql_escape_string($participants)."',`metrics` = '".@mysql_escape_string($metrics)."',`submitby` = ".@mysql_escape_string($submitby).",`approved` = ".@mysql_escape_string($approved).",`author` = '".@mysql_escape_string($author)."',`year` = ".@mysql_escape_string($year)." WHERE `esid` = '".$this->esid."'";
 			require_once('./system/db.php');
 			$db = new DB();
 			if($db->query($sql)){
@@ -121,6 +121,7 @@ class EvidenceSource{
 	public function getResearchLevel(){ return $this->researchlevel; }
 	public function getMethod(){ return $this->method; }
 	public function getParticipants(){ return $this->participants; }
+	public function getQuestion(){ return $this->question; }
 	public function getMetrics(){ return $this->metrics; }
 	public function getSubmitby(){ return $this->submitby; }
 	public function getApproved(){ return $this->approved; }
@@ -151,10 +152,10 @@ class EvidenceSource{
 		return $this->esid === $es->esid  && 
 			   $this->iid === $es->iid  && 
 			   $this->bibref === $es->bibref  && 
-			   $this->researchlevel === $es->researchlevel
+			   $this->researchlevel === $es->researchlevel &&
 			   $this->question === $es->question  && 
 			   $this->method === $es->method  && 
-			   $this->participants === $es->participants
+			   $this->participants === $es->participants &&
 			   $this->metrics === $es->metrics  && 
 			   $this->submitby === $es->submitby  && 
 			   $this->approved === $es->approved  &&
@@ -167,6 +168,37 @@ class EvidenceSource{
 		$result = false;
 		if($esid>0){
 			$sql ="SELECT * FROM `evidencesource` WHERE `esid`='$esid'";
+			require_once('./system/db.php');
+			$db = new DB();
+			$query = $db->query($sql);
+			$num = $query->num_rows;
+			if($num>0){
+				$row = $query->row;
+				$esid= $row['esid'];
+				$iid= $row['iid'];
+				$bibref= $row['bibref'];
+				$researchlevel = $row['researchlevel'];
+				$question = $row['question'];
+				$method = $row['method'];
+				$participants = $row['participants'];
+				$metrics = $row['metrics'];
+				$submitby = $row['submitby'];
+				$approved = $row['approved'];
+				$author = $row['author'];
+				$year = $row['year'];
+				
+				$this->setEvidenceSource($esid ,$iid, $bibref ,$researchlevel,$question,$method,$participants,$metrics,$submitby,$approved,$author,$year);
+				$result = true;
+			}
+		}
+		return $result;
+	}
+	
+	//retrieve object by primary key
+	public function retrieveByIId($iid){
+		$result = false;
+		if($iid>0){
+			$sql ="SELECT * FROM `evidencesource` WHERE `iid`='$iid'";
 			require_once('./system/db.php');
 			$db = new DB();
 			$query = $db->query($sql);

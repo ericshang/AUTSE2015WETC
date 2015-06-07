@@ -43,16 +43,18 @@
 						echo "<option value='$methodId'>$name</option>";
 					}
 				 ?></select> *</p>
+                 <h3>Context:</h3>
                 <p>What:  *<br /><textarea name="what" ></textarea></p>
                 <p>Who: <br /><textarea name="who" ></textarea></p>
                 <p>Why: <br /><textarea name="why" ></textarea></p>
                 <p>Where: <br /><textarea name="where" ></textarea></p>
                 <p>When: <br /><textarea name="when" ></textarea></p>
                 <p>How: <br /><textarea name="how" ></textarea></p>
+                <h3>Outcome:</h3>
                 <p>Benefit: <br /><textarea name="benefit" ></textarea></p>
                 <p>Result: <br /><textarea name="result" ></textarea></p>
                 <p>Method Implementation: <br /><textarea name="methodImplementation" ></textarea></p>
-                <p><input type="submit" value="Submit" class="inputSubmit"/></p>
+                <p><input type="submit" value="next" class="inputSubmit"/></p>
                 </form>
             </div>
         </div>
