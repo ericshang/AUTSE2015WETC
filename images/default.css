@@ -382,6 +382,9 @@ Generics
 .trGray{
 	background-color:#f0f0f0;
 }
+.trHeader{
+	background-color:#e0e0e0;
+}
 .articleListTable tr:hover{
 	background-color:#e0e0e0;
 }
